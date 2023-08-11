@@ -179,7 +179,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - geneustacewicaksono@yahoo.com.com
+Geneustace Wicaksono - [My Website](https://genewica.herokuapp.com) - geneustacewicaksono@yahoo.com
 
 Project Link: [https://github.com/Sentientplatypus/jackal](https://github.com/Sentientplatypus/jackal)
 
@@ -229,5 +229,5 @@ Project Link: [https://github.com/Sentientplatypus/jackal](https://github.com/Se
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-[python]: https://dev.to/envoy_/150-badges-for-github-pnk
+[python]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [python-url]: https://python.com
