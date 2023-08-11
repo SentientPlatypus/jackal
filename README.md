@@ -35,7 +35,7 @@
 <h3 align="center">Jackal</h3>
 
   <p align="center">
-    In the autonomous systems lab, our goal is to develop a robot that helps evacuate people out of buildings. our robot, named jackal has been used in pilot studies studying human-robot interaction when there are contradicting values. For example, in an emergency, people will often search for their valuables before exiting the building, thus decreasing their chances of survival. The robot on the other hand, will want to exit the building. We are studying the best robot behaviors to get the people to follow it faster. 
+    In the verifiable robotics research group at Cornell, our goal is to develop a robot that helps evacuate people out of buildings. our robot, named jackal has been used in pilot studies studying human-robot interaction when there are contradicting values. For example, in an emergency, people will often search for their valuables before exiting the building, thus decreasing their chances of survival. The robot on the other hand, will want to exit the building. We are studying the best robot behaviors to get the people to follow it faster. 
     <br /> 
     <a href="https://github.com/Sentientplatypus/jackal"><strong>Explore the docs »</strong></a>
     <br />
