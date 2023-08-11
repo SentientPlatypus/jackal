@@ -91,7 +91,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Next][python]][python.com]
+* [![Next][python]][python-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -230,4 +230,4 @@ Project Link: [https://github.com/Sentientplatypus/jackal](https://github.com/Se
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
 [python]: https://dev.to/envoy_/150-badges-for-github-pnk
-[python.com]: https://python.com
+[python-url]: https://python.com
