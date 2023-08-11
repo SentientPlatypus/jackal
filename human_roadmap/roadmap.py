@@ -115,6 +115,6 @@ class RoadMap():
 if __name__ == "__main__":
     print("we out")
     rm = RoadMap(r"W:\Code\workorinternship\jackal\human_roadmap\rhd3_map_3_walls.txt", r"W:\Code\workorinternship\jackal\human_roadmap\rhd3_map_3_waypoints.txt")
-    human = np.array([0, 0])
+    human = np.array([10, -9])
     # rm.project(human)
     rm.plot(human= human)
