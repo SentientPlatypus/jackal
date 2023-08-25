@@ -2,29 +2,24 @@ import rospy
 from geometry_msgs.msg import TransformStamped
 from roadmap import RoadMap
 
-rd = RoadMap("rhd3_map_3_walls.txt", "rhd3_map_3_waypoints.txt")
-rospy.init_node('listener', anonymous=True)
-pub = rospy.Publisher("newer", TransformStamped, queue_size=1)	
-rate = rospy.Rate(10)
+rd = RoadMap("/home/david/catkin_ws/src/Event-based-STL/FinalPackage/Maps/rhd3_withoutbox_map6_walls.txt", "/home/david/catkin_ws/src/Event-based-STL/FinalPackage/Maps/rhd3_withoutbox_map6_waypoints.txt")
+rospy.init_node('human_pose_cleaner', anonymous=True)
+pub = rospy.Publisher("human_with_filter_projected", TransformStamped, queue_size=1)	
 
 def talker(stuff:TransformStamped):
-
 	projection = rd.project([stuff.transform.translation.x, stuff.transform.translation.y])
-	stuff.header.frame_id = "THIS IS PROJECTED"
+	stuff.header.frame_id = "map"
+	stuff.child_frame_id = "human_on_roadmap"
 	stuff.transform.translation.x = projection[0]
 	stuff.transform.translation.y = projection[1]
-	sstr = "repeating"
-	rospy.loginfo(sstr)
 	pub.publish(stuff)
-	rate.sleep()
 		
 def callback(data):
 	rospy.loginfo(rospy.get_caller_id() + f"I heard {data}")
 	talker(data)
 
 def listener():
-	rate.sleep()
-	rospy.Subscriber("chatter", TransformStamped, callback)
+	rospy.Subscriber("human_with_filter_inertial", TransformStamped, callback)
 	rospy.spin()
 	
 	

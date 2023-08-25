@@ -81,26 +81,28 @@ class RoadMap():
         
     
 
-    def plot(self, human = None):
+    def plot(self, human = None, plot_waypoints=True, plot_roadmap=True):
         for wall in self.walls:
             x_values = [point[0] for point in wall]
             y_values = [point[1] for point in wall]
             plt.plot(x_values, y_values, color="green")
         
-        for line in self.roadmap:
-            x_values = [point[0] for point in line]
-            y_values = [point[1] for point in line]
-            plt.plot(x_values, y_values, color="red", linestyle="dotted")
+        if plot_roadmap:
+            for line in self.roadmap:
+                x_values = [point[0] for point in line]
+                y_values = [point[1] for point in line]
+                plt.plot(x_values, y_values, color="red", linestyle="dotted")
 
 
-
-        plt.scatter(self.waypoints[:, 0], self.waypoints[:, 1], color="blue", marker="*", label="waypoint")
+        if plot_waypoints:
+            plt.scatter(self.waypoints[:, 0], self.waypoints[:, 1], color="blue", marker="*", label="waypoint")
 
         if human is not None:
             plt.scatter([human[0]], [human[1]], color="orange", marker="o", label="human")
             projected = self.project(h=human)
             print(projected)
             plt.scatter([projected[0]], [projected[1]], color="black", marker="D", label="projected")
+            
         plt.xlabel('X-axis')
         plt.ylabel('Y-axis')
         plt.title('Plot of Walls')
@@ -113,9 +115,8 @@ class RoadMap():
 
 
 if __name__ == "__main__":
-
-    print(do_intersect([[-1, 0], [1, 0]], [[0, -1], [0, 1]]))
+    print("we out")
     rm = RoadMap(r"W:\Code\workorinternship\jackal\human_roadmap\rhd3_map_3_walls.txt", r"W:\Code\workorinternship\jackal\human_roadmap\rhd3_map_3_waypoints.txt")
     human = np.array([10, -9])
     # rm.project(human)
-    rm.plot(human= human)
+    rm.plot(plot_roadmap=False)

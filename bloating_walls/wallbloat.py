@@ -125,3 +125,9 @@ def walls_to_file(bloated, filename):
             x1, y1 = wall[0]
             x2, y2 = wall[1]
             file.write(f"{x1} {y1} {x2} {y2}\n")
+
+
+if __name__ == "__main__":
+    rhodes = walls_from_file("bloating_walls\walls.txt")
+    plot_walls(rhodes, bloat(rhodes, 0.5))
+    walls_to_file(bloat(rhodes, 0.5), "bloating_walls\bloated.txt")
