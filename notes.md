@@ -32,7 +32,7 @@
 	* Drive around slowly and map the area
 	* Terminal 3: `rosrun map_server map_saver -f labmap`
 		- labmap is the name of the map file and yaml that will be created in whatever directory you are in
-	* To view the map in progress: rosshow /map #WARNING: rosshow sometimes kills the wifi connection
+	* To view the map in progress: `rosshow /map` *WARNING*: rosshow sometimes kills the wifi connection
 3. To save the map on the external machine run two commands:
 	```sh
 	scp administrator@192.168.1.44:/home/administrator/rhodes.pgm rhodes.pgm
