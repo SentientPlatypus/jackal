@@ -9,7 +9,7 @@ def talker():
 	while not rospy.is_shutdown():
 		t = Twist()
 		t.linear.x = -.1
-		t.angular.y = .1
+		t.angular.z = .1
 		pub.publish(t)
 		rate.sleep()
 
