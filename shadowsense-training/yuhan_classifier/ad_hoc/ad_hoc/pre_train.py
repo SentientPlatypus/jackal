@@ -1,11 +1,11 @@
 from train_classifier2 import Trainer, TrainerExited
 from joblib import dump, load
-from sklearn.externals import joblib
+import joblib
 
 ## This is to pre-train the classifier and save it as "classifier.joblib"
 
-trainer = Trainer(train_path="data3/11-5/train", test_path="data3/11-5/test/")
+trainer = Trainer(train_path=r"W:\Code\workorinternship\jackal\shadowsense-training\trainingdata", test_path=r"W:\Code\workorinternship\jackal\shadowsense-training\testingdata")
 clf = trainer.train()
-dump(clf, 'classifiers/11-5.joblib')
-joblib_file = "11-5.pkl"
+dump(clf, r'shadowsense-training\ad_hoc\ad_hoc\classifiers\super.joblib')
+joblib_file = r"shadowsense-training\ad_hoc\ad_hoc\super.pkl"
 joblib.dump(clf, joblib_file)
