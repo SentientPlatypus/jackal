@@ -4,7 +4,10 @@ from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 from std_msgs.msg import Bool
 from joblib import dump, load
+<<<<<<< Updated upstream
 from skimage.transform import resize
+=======
+>>>>>>> Stashed changes
 import numpy as np
 
 def predict_image_opencv(clf, opencv_image):
