@@ -21,7 +21,7 @@ class Camera(object):
         self.listeningto = "/shadowsense/camera/raw"
         rospy.init_node("datarecorder", anonymous=True)
         
-        self.mode = "touch"
+        self.mode = "notouch"
         self.touchDirectory = "trainingdata/touch"
         self.noTouchDirectory="trainingdata/no_touch"
         self.count = 0
@@ -31,9 +31,9 @@ class Camera(object):
         rospy.spin()
 
     def run(self, image):
+        self.count += 1
         if self.count %8 !=0:
                 return
-        self.count += 1
         current_datetime = datetime.datetime.now()
         cv_image = self.bridge.imgmsg_to_cv2(image, "bgr8")
         path = self.touchDirectory if self.mode == "touch" else self.noTouchDirectory

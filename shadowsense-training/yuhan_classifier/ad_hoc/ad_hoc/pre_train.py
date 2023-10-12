@@ -4,8 +4,8 @@ import joblib
 
 ## This is to pre-train the classifier and save it as "classifier.joblib"
 
-trainer = Trainer(train_path=r"/trainingdata", test_path=r"testingdata")
+trainer = Trainer(train_path=r"/home/administrator/nri_workspace/src/jackal/shadowsense-training/trainingdata/", test_path=r"/home/administrator/nri_workspace/src/jackal/shadowsense-training/trainingdata/")
 clf = trainer.train()
 dump(clf, r'classifiers/super.joblib')
-joblib_file = r"/super.pkl"
+joblib_file = r"super.pkl"
 joblib.dump(clf, joblib_file)
