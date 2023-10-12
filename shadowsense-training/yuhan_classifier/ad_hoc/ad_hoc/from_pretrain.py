@@ -25,10 +25,10 @@ def predict_image_opencv(clf, opencv_image):
     return buffer, pred
 
 
-clfloaded = load(r"W:\Code\workorinternship\jackal\shadowsense-training\ad_hoc\ad_hoc\classifiers\super.joblib")
+clfloaded = load(r"classifiers\super.joblib")
 
 
-opencv_image = cv2.imread(r"W:\Code\workorinternship\jackal\shadowsense-training\testingdata\no_touch\frame20230911_171756.jpg")
+opencv_image = cv2.imread(r"/home/david/catkin_ws/src/jackal/shadowsense-training/trainingdata/no_touch/frame20230911_172246.jpg")
 
 
 classification_result = predict_image_opencv(clfloaded, opencv_image)
