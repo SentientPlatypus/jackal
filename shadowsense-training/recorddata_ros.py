@@ -6,7 +6,8 @@ from std_msgs.msg import Bool
 from joblib import dump, load
 from skimage.transform import resize
 import numpy as np
-
+import time
+import datetime
             
 class Camera(object):
 
@@ -23,25 +24,25 @@ class Camera(object):
         self.mode = "touch"
         self.touchDirectory = "trainingdata/touch"
         self.noTouchDirectory="trainingdata/no_touch"
+        self.count = 0
 
-        self.cap = cv2.VideoCapture(0)
-
-    def listen():
+    def listen(self):
         rospy.Subscriber(self.listeningto, Image, self.run)
-
+        rospy.spin()
 
     def run(self, image):
+        if self.count %8 !=0:
+                return
+        self.count += 1
+        current_datetime = datetime.datetime.now()
         cv_image = self.bridge.imgmsg_to_cv2(image, "bgr8")
-        o, prediction = predict_image_opencv(self.clf, cv_image)
-        path = touchDirectory if mode == "touch" else noTouchDirectory
+        path = self.touchDirectory if self.mode == "touch" else self.noTouchDirectory
         filename = "{}/frame{}.jpg".format(path, current_datetime.strftime("%Y%m%d_%H%M%S"))
-        cv2.imwrite(filename, img)
+        print("saved image ",filename)
+        cv2.imwrite(filename, cv_image)
 
 if __name__ == '__main__':
-    rospy.init_node("Publish_camera")
     camera = Camera()
     r = rospy.Rate(1)
 
-    while not rospy.is_shutdown():
-        camera.listen()
-        r.sleep()
+    camera.listen()

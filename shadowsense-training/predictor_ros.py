@@ -1,8 +1,11 @@
 import rospy
 import cv2
 from cv_bridge import CvBridge
-from sensor_msgs.msg import Image, Bool
+from sensor_msgs.msg import Image
+from std_msgs.msg import Bool
 from joblib import dump, load
+from skimage.transform import resize
+import numpy as np
 
 def predict_image_opencv(clf, opencv_image):
     w, h, _ = opencv_image.shape  # Get the width and height of the image
@@ -37,25 +40,22 @@ class Camera(object):
 
         self.rawpub = rospy.Publisher(self.pubstr, Bool, queue_size=10)
 
-        self.clf = load("yuhan_classifier\ad_hoc\ad_hoc\classifiers\super.joblib")
-        self.cap = cv2.VideoCapture(0)
+        self.clf = load("yuhan_classifier/ad_hoc/ad_hoc/classifiers/super.joblib")
 
-    def listen():
+    def listen(self):
         rospy.Subscriber(self.listeningto, Image, self.run)
+        rospy.spin()
 
-
-    def run(self, cv_image):
+    def run(self, image):
+        cv_image = self.bridge.imgmsg_to_cv2(image, "bgr8")
         o, prediction = predict_image_opencv(self.clf, cv_image)
-
+        print(prediction)
         touching = Bool()
-        touching.data = prediction == 0
+        touching.data = int(prediction) == 0
         self.rawpub.publish(touching)
 
 if __name__ == '__main__':
-    rospy.init_node("Publish_camera")
     camera = Camera()
     r = rospy.Rate(10)
 
-    while not rospy.is_shutdown():
-        camera.listen()
-        r.sleep()
+    camera.listen()
