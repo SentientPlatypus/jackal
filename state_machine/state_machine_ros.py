@@ -1,6 +1,6 @@
 import rospy
 from cv_bridge import CvBridge
-from std_msgs.msg import Bool, Float
+from std_msgs.msg import Bool, Int64
 from geometry_msgs.msg import PoseStamped, Point
 
 class State():
@@ -13,7 +13,7 @@ class StateMachine():
     def __init__(self, end:list):
         self.state = State.FOLLOW
         self.publish_topic = "/statemachine/state"
-        self.rawpub = rospy.Publisher(self.publish_topic, Float, queue_size=10)
+        self.rawpub = rospy.Publisher(self.publish_topic, Int64, queue_size=10)
         
         self.message_dispatch = {
             State.FOLLOW: self.on_follow,
@@ -42,7 +42,7 @@ class StateMachine():
             self.publish_state()
 
     def publish_state(self):
-        state_msg = Float()
+        state_msg = Int64()
         state_msg.data = self.state
         self.rawpub.publish(state_msg)
 
