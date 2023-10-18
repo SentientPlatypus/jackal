@@ -12,8 +12,8 @@ class Pos():
         self.endpoint.z = end[2]
 
     def talk(self):
-        self.rawpub.Publish(self.endpoint)
-        
+        self.rawpub.publish(self.endpoint)
+        rospy.spin()        
 
 if __name__ == '__main__':
     rospy.init_node('Pos_node')
