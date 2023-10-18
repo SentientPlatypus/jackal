@@ -1,15 +1,15 @@
 import rospy
 from std_msgs.msg import Bool, Int64
-from geometry_msgs.msg import PoseStamped, Point
+from geometry_msgs.msg import PoseStamped
 
 class Pos():
     def __init__(self, end:list):
         self.publish_topic = "/amcl_pose"
-        self.rawpub = rospy.Publisher(self.publish_topic, Point, queue_size=10)
-        self.endpoint = Point()
-        self.endpoint.x = end[0]
-        self.endpoint.y = end[1]
-        self.endpoint.z = end[2]
+        self.rawpub = rospy.Publisher(self.publish_topic, PoseStamped, queue_size=10)
+        self.endpoint = PoseStamped()
+        self.endpoint.pose.position.x = end[0]
+        self.endpoint.pose.position.y = end[1]
+        self.endpoint.pose.position.z = end[2]
 
     def talk(self):
         self.rawpub.publish(self.endpoint)
