@@ -23,11 +23,11 @@ class StateMachine():
         self.endpoint.x = end[0]
         self.endpoint.y = end[1]
         self.endpoint.z = end[2]
-
+        print("Initialized")
     def listen(self):
+        print("listening")
         rospy.Subscriber("/shadowsense/is_touched", Bool, self.message_dispatcher)
         rospy.Subscriber("/amcl_pose", PoseStamped, self.message_dispatcher)  # Replace with your actual topic
-
         rospy.spin()
 
     def on_follow(self, boolean):
@@ -45,9 +45,10 @@ class StateMachine():
         state_msg = Int64()
         state_msg.data = self.state
         self.rawpub.publish(state_msg)
-
+        print(self.state)
     def message_dispatcher(self, msg):
-        if self.state in self.message_dispatch:
+       print(msg) if msg else print("NO MESSAGES") 
+       if self.state in self.message_dispatch:
             self.message_dispatch[self.state](msg)
 
 if __name__ == '__main__':
