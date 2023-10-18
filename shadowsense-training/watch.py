@@ -23,12 +23,12 @@ def predict_image_opencv(clf, opencv_image):
     pred = clf.predict(buffer)[0]
     return buffer, pred
 
-
+print("loading model")
 clfloaded = load(r"W:\Code\workorinternship\jackal\shadowsense-training\ad_hoc\ad_hoc\classifiers\super.joblib")
 
 cap = cv2.VideoCapture(1)
 
-
+print("starting stream...")
 while cap.isOpened():
     success, img = cap.read()
     current_datetime = datetime.datetime.now()

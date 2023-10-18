@@ -6,24 +6,7 @@ from joblib import dump, load
 import numpy as np
 from skimage.transform import resize
 
-# Create directories if they don't exist
-def predict_image_opencv(clf, opencv_image):
-    w, h, _ = opencv_image.shape  # Get the width and height of the image
 
-    opencv_image = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2GRAY)  # Convert to grayscale if needed
-
-    buffer = np.frombuffer(opencv_image.tobytes(), dtype=np.uint8)
-    buffer = np.reshape(buffer, (h, w))
-
-    buffer = resize(buffer, (100, 100))
-    buffer = buffer.flatten()
-    buffer = buffer[np.newaxis, :]
-
-    pred = clf.predict(buffer)[0]
-    return buffer, pred
-
-
-clfloaded = load(r"W:\Code\workorinternship\jackal\shadowsense-training\ad_hoc\ad_hoc\classifiers\super.joblib")
 
 def main(touchDirectory="trainingdata/touch", noTouchDirectory="trainingdata/no_touch", mode=None, camera=1, saving=True):
     if not mode:
