@@ -12,11 +12,14 @@ class Pos():
         self.endpoint.pose.position.z = end[2]
 
     def talk(self):
+        print("speaking")
         self.rawpub.publish(self.endpoint)
-        rospy.spin()        
+
 
 if __name__ == '__main__':
     rospy.init_node('Pos_node')
     p = Pos([18.4, -38.91, 0])
     r = rospy.Rate(10)
-    p.talk()
+    while not rospy.is_shutdown():
+        p.talk()
+        r.sleep()

@@ -6,14 +6,18 @@ class SS():
     def __init__(self):
         self.publish_topic = "/shadowsense/is_touched"
         self.rawpub = rospy.Publisher(self.publish_topic, Bool, queue_size=10)
+
     def talk(self):
+        print("speaking")
         d = Bool()
         d.data = True
         self.rawpub.publish(d)
-        rospy.spin()        
+
 
 if __name__ == '__main__':
     rospy.init_node('SS_node')
     ss = SS()
     r = rospy.Rate(10)
-    ss.talk()
+    while not rospy.is_shutdown():
+        ss.talk()
+        r.sleep()

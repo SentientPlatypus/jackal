@@ -23,7 +23,7 @@ class StateMachine():
         self.endpoint.x = end[0]
         self.endpoint.y = end[1]
         self.endpoint.z = end[2]
-        print("Initialized")
+        print("Initialized, current state is " + str(self.state))
     def listen(self):
         print("listening")
         rospy.Subscriber("/shadowsense/is_touched", Bool, self.message_dispatcher)
@@ -45,7 +45,7 @@ class StateMachine():
         state_msg = Int64()
         state_msg.data = self.state
         self.rawpub.publish(state_msg)
-        print(self.state)
+        print("new_state" + str(self.state))
     def message_dispatcher(self, msg):
        print(msg) if msg else print("NO MESSAGES") 
        if self.state in self.message_dispatch:
