@@ -2,6 +2,8 @@ import rospy
 from cv_bridge import CvBridge
 from std_msgs.msg import Bool, Int64
 from geometry_msgs.msg import PoseStamped, Point
+import subprocess
+import os
 
 class State():
     FOLLOW = 0
@@ -23,6 +25,12 @@ class StateMachine():
         self.endpoint.x = end[0]
         self.endpoint.y = end[1]
         self.endpoint.z = end[2]
+        self.exit_img = "exit.png"
+        self.followimg = "follow.png"
+
+        self.viewer = subprocess.Popen(["feh", "-F", self.followimg], env = dict(os.environ,DISPLAY=":0"))
+
+
         print("Initialized, current state is " + str(self.state))
     def listen(self):
         print("listening")
@@ -31,12 +39,15 @@ class StateMachine():
         rospy.spin()
 
     def on_follow(self, boolean):
+        self.viewer.terminate()
+        self.viewer = subprocess.Popen(["feh", "-F", self.followimg], env = dict(os.environ,DISPLAY=":0"))
         if boolean.data:
             self.state = State.LEAD
             self.publish_state()
     
     def on_lead(self, pose):
-
+        self.viewer.terminate()
+        self.viewer = subprocess.Popen(["feh", "-F", self.exit_img], env = dict(os.environ,DISPLAY=":0"))
         if pose.pose.position == self.endpoint:
             self.state = State.DONE
             self.publish_state()
@@ -46,6 +57,9 @@ class StateMachine():
         state_msg.data = self.state
         self.rawpub.publish(state_msg)
         print("new_state" + str(self.state))
+
+
+
     def message_dispatcher(self, msg):
        print(msg) if msg else print("NO MESSAGES") 
        if self.state in self.message_dispatch:
