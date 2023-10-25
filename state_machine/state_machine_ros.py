@@ -1,7 +1,7 @@
 import rospy
 from cv_bridge import CvBridge
 from std_msgs.msg import Bool, Int64
-from geometry_msgs.msg import PoseStamped, Point
+from geometry_msgs.msg import PoseWithCovarianceStamped, Point
 import subprocess
 import os
 
@@ -35,7 +35,7 @@ class StateMachine():
     def listen(self):
         print("listening")
         rospy.Subscriber("/shadowsense/is_touched", Bool, self.message_dispatcher)
-        rospy.Subscriber("/amcl_pose", PoseStamped, self.message_dispatcher)  # Replace with your actual topic
+        rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, self.message_dispatcher)  # Replace with your actual topic
         rospy.spin()
 
     def on_follow(self, boolean):
@@ -48,7 +48,7 @@ class StateMachine():
     def on_lead(self, pose):
         self.viewer.terminate()
         self.viewer = subprocess.Popen(["feh", "-F", self.exit_img], env = dict(os.environ,DISPLAY=":0"))
-        if pose.pose.position == self.endpoint:
+        if pose.pose.pose.position == self.endpoint:
             self.state = State.DONE
             self.publish_state()
 
