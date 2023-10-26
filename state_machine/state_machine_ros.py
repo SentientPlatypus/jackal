@@ -16,11 +16,6 @@ class StateMachine():
         self.state = State.FOLLOW
         self.publish_topic = "/statemachine/state"
         self.rawpub = rospy.Publisher(self.publish_topic, Int64, queue_size=10)
-        
-        self.message_dispatch = {
-            State.FOLLOW: self.on_follow,
-            State.LEAD: self.on_lead
-        }
         self.endpoint = Point()
         self.endpoint.x = end[0]
         self.endpoint.y = end[1]
@@ -32,25 +27,32 @@ class StateMachine():
 
 
         print("Initialized, current state is " + str(self.state))
-    def listen(self):
-        print("listening")
-        rospy.Subscriber("/shadowsense/is_touched", Bool, self.message_dispatcher)
-        rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, self.message_dispatcher)  # Replace with your actual topic
+        
+    def listenpose(self):
+        print("listening for pose")
+        rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, self.on_lead)  # Replace with your actual topic
+        rospy.spin()
+
+    def listenshadow(self):
+        print("listening for shadowsense")
+        rospy.Subscriber("/shadowsense/is_touched", Bool, self.on_follow)
         rospy.spin()
 
     def on_follow(self, boolean):
-        self.viewer.terminate()
-        self.viewer = subprocess.Popen(["feh", "-F", self.followimg], env = dict(os.environ,DISPLAY=":0"))
-        if boolean.data:
-            self.state = State.LEAD
-            self.publish_state()
+        if self.state == State.FOLLOW:
+            self.viewer.terminate()
+            self.viewer = subprocess.Popen(["feh", "-F", self.followimg], env = dict(os.environ,DISPLAY=":0"))
+            if boolean.data:
+                self.state = State.LEAD
+                self.publish_state()
     
     def on_lead(self, pose):
-        self.viewer.terminate()
-        self.viewer = subprocess.Popen(["feh", "-F", self.exit_img], env = dict(os.environ,DISPLAY=":0"))
-        if pose.pose.pose.position == self.endpoint:
-            self.state = State.DONE
-            self.publish_state()
+        if self.state == State.LEAD:
+            self.viewer.terminate()
+            self.viewer = subprocess.Popen(["feh", "-F", self.exit_img], env = dict(os.environ,DISPLAY=":0"))
+            if pose.pose.pose.position == self.endpoint:
+                self.state = State.DONE
+                self.publish_state()
 
     def publish_state(self):
         state_msg = Int64()
@@ -58,12 +60,6 @@ class StateMachine():
         self.rawpub.publish(state_msg)
         print("new_state" + str(self.state))
 
-
-
-    def message_dispatcher(self, msg):
-       print(msg) if msg else print("NO MESSAGES") 
-       if self.state in self.message_dispatch:
-            self.message_dispatch[self.state](msg)
 
 if __name__ == '__main__':
     rospy.init_node('state_machine_node')
