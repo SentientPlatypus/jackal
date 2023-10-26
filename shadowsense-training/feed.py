@@ -2,7 +2,10 @@ import cv2
 import os
 import time
 import datetime
-# Create directories if they don't exist
+from joblib import dump, load
+import numpy as np
+from skimage.transform import resize
+
 
 
 def main(touchDirectory="trainingdata/touch", noTouchDirectory="trainingdata/no_touch", mode=None, camera=1, saving=True):
