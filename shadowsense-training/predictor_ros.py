@@ -10,7 +10,7 @@ import numpy as np
 def predict_image_opencv(clf, opencv_image):
     w, h, _ = opencv_image.shape  # Get the width and height of the image
 
-    opencv_image = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2GRAY)  # Convert to grayscale if needed
+    #opencv_image = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2GRAY)  # Convert to grayscale if needed
 
     buffer = np.frombuffer(opencv_image.tobytes(), dtype=np.uint8)
     buffer = np.reshape(buffer, (h, w))
