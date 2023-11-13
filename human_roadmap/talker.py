@@ -8,9 +8,9 @@ def talker():
 	rate = rospy.Rate(10)
 	while not rospy.is_shutdown():
 		t = TransformStamped()
-		t.transform.translation.x = 1000 #18
-		t.transform.translation.y = 2000 #-19
-		t.transform.rotation.w = 1
+		t.transform.translation.x = 0 #18
+		t.transform.translation.y = 0 #-19
+		t.transform.rotation.w = 0
 		t.header.stamp = rospy.Time.now()
 		t.header.frame_id = "map"
 		t.child_frame_id = "human_with_filter"

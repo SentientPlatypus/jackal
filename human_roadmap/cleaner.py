@@ -1,6 +1,6 @@
 import rospy
 from geometry_msgs.msg import TransformStamped
-from roadmap import RoadMap
+from human_roadmap.roadmap import RoadMap
 
 rd = RoadMap("/home/david/catkin_ws/src/Event-based-STL/FinalPackage/Maps/rhd3_withoutbox_map6_walls.txt", "/home/david/catkin_ws/src/Event-based-STL/FinalPackage/Maps/rhd3_withoutbox_map6_waypoints.txt")
 rospy.init_node('human_pose_cleaner', anonymous=True)

@@ -11,6 +11,7 @@ def talker(stuff:Twist):
 		stuff.angular.z *= -1
 	sstr = f"inverting to x: {stuff.linear.x} z:{stuff.angular.z}"
 	# rospy.loginfo(sstr)
+
 	pub.publish(stuff)
 
 def callback(data):
@@ -26,4 +27,3 @@ def periodic():
 
 if __name__ == "__main__":
 	periodic()
-
